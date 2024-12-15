@@ -1,8 +1,6 @@
 let textLines = [];
-let currentLineIndex = 0;
-let charIndex = 0;
-let displaySpeed = 100; // Speed of character display (milliseconds)
-let lastCharTime = 0;
+let angleOffset = 0; // Angle offset for rotation
+let displayClock = false; // Flag to toggle clock on click
 
 function preload() {
   // Load the text file (make sure 'text.txt' is in your project folder)
@@ -10,36 +8,53 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(800, 600);
+  createCanvas(windowWidth, windowHeight); // Full canvas size
   textAlign(CENTER, CENTER);
-  textSize(36);
-  fill(255);
+  textSize(24);
+  fill(0);
 }
 
 function draw() {
-  background(0);
+  background(255);
 
-  if (textLines.length > 0) {
-    let currentLine = textLines[currentLineIndex];
+  if (displayClock && textLines.length > 0) {
+    // Draw the clock-like text arrangement
+    let radius = min(width, height) / 3; // Dynamic radius based on canvas size
+    let angleStep = TWO_PI / textLines.length; // Angle step for each text line
 
-    // Gradually display characters one by one
-    if (millis() - lastCharTime > displaySpeed) {
-      charIndex++;
-      lastCharTime = millis();
+    push();
+    translate(width / 2, height / 2); // Move to the center of the canvas
+
+    for (let i = 0; i < textLines.length; i++) {
+      let angle = i * angleStep + angleOffset; // Calculate angle for each line
+      let x = radius * cos(angle); // X position
+      let y = radius * sin(angle); // Y position
+
+      push();
+      translate(x, y); // Move to text position
+      rotate(angle + HALF_PI); // Rotate text to face outward
+      text(textLines[i], 0, 0); // Display text
+      pop();
     }
 
-    // Display the current substring of the line
-    let partialText = currentLine.substring(0, charIndex);
-    text(partialText, width / 2, height / 2);
+    pop();
 
-    // Move to the next line when the current line is fully displayed
-    if (charIndex >= currentLine.length) {
-      charIndex = 0;
-      currentLineIndex = (currentLineIndex + 1) % textLines.length;
-    }
-
-    // Dynamic size and color to keep the animation alive
-    textSize(36 + sin(frameCount * 0.1) * 5);
-    fill(200 + sin(frameCount * 0.05) * 55, 150, 255);
+    // Slowly rotate the clock
+    angleOffset += 0.01;
+  } else {
+    // Display a message to click
+    textSize(32);
+    fill(100);
+    text("Click to toggle the clock", width / 2, height / 2);
   }
+}
+
+function mousePressed() {
+  // Toggle clock display on click
+  displayClock = !displayClock;
+}
+
+function windowResized() {
+  // Adjust canvas size dynamically on window resize
+  resizeCanvas(windowWidth, windowHeight);
 }
