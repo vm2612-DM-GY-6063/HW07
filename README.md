@@ -1,60 +1,30 @@
-# p5.js Template
+The text used for this animation is stored in text.txt its from a show called Naruto. Example content includes:
 
-This is a README file that can be used to describe and document your assignment.
+"When you give up, your dreams and everything else, they’re gone.
 
-Markdown Cheatsheet (from [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/)):
+A person becomes strong when they have someone they want to protect. 
 
----
----
+The pain of being alone is not an easy one to bear.
 
-# Heading1
-## Heading2
-### Heading3
-#### Heading4
-##### Heading5
-###### Heading6
+I’m not going to run away, I never go back on my word. That’s my nindo: my ninja way!
 
-**bold text**
+Power is not will. It is the phenomenon of physically making things happen."
 
-*italicized text*
-
-~~strikethrough text~~
-
-Ordered List:
-1. First item
-2. Second item
-3. Third item
-
-Unordered List:
-- First item
-- Second item
-- Third item
-
-`short code block`
-
-```
-extended code block
-fun() {
-  return 0
-}
-```
-
-Link:  
-[linked text](https://www.example.com)
+This text is dynamically split into individual letters for animation.
 
 
-Image with url:  
-![image description](https://dm-gy-6063-2024f-b.github.io/assets/homework/02/clark-espaco-modulado-00.jpg)
+Overview
+The animation transitions between two states:
 
+Floating Letters (Initial State):
 
-Image on repo:  
-![image description](./file-name.jpg)
+Letters from the chosen text float randomly across the screen with slow, smooth motion.
+Each letter has its own position, speed, size, and opacity.
+Clock Formation (Triggered on Click):
 
+On mouse click, the letters smoothly animate into a circular clock-like layout.
+The text dynamically rotates around the clock face.
+Clock hands (hour, minute, and second) appear at the center, representing real-world time.
+Multiple Click Toggle:
 
-To start a new line, add two spaces at the end of a line, like this:  
-this is a new line.
-
-
-To start a new paragraph, leave an empty line between two lines of text.
-
-This is a new paragraph.
+Clicking the canvas toggles between the floating state and the clock state.
